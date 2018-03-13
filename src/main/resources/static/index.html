@@ -1,0 +1,86 @@
+<!doctype html>
+ 
+<html ng-app="tasks">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+    <title>Christian tasklist</title>
+
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <style>
+        html                    { overflow-y:scroll; }
+        body                    { padding-top:20px; padding-right: 100px; }
+        #tasklist               { margin-bottom:40px; }
+        form button             { margin-top: 15px; }
+        form .form-group:first-child { padding-left: 0; }
+    </style>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>  
+    <script src="tasklistController.js"></script>
+ 
+</head>
+<body ng-controller="mainController">
+    <div class="container">
+
+        <table class="table table-striped">
+            <label class="lbtitle" style="font-size: 40px ">Minhas Tarefas:
+                <span class="label label-info">{{ tasks.length }}</span>
+            </label>
+        </table>
+
+        <div id="tasklist">
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>Título</th>
+                    <th>Descrição</th>
+                    <th>Feito? </th>
+                    <th>Criado</th>
+                    <th>Atualizado</th>
+                    <th>Finalizado</th>
+                    <th>Ações</th>
+                </tr>
+ 
+                <tr ng-repeat="task in tasks">
+                    <td>{{ task.key1}}</td>
+                    <td>{{ task.title}}</td>
+                    <td>{{ task.description}}</td>
+                    <td>{{ task.done}}</td>
+                    <td>{{ task.createDate}}</td>
+                    <td>{{ task.editDate}}</td>
+                    <td>{{ task.doneDate}}</td>
+                    <td>
+                        <button type="button" class="btn btn-default" ng-click="editar(task.key1)">Editar</button>
+                        <button type="button" class="btn btn-primary" ng-click="remover(task.key1)">Remover</button>
+                    </td>
+                </tr>
+ 
+            </table>
+        </div>
+ 
+        <div id="task-form">
+            <hr>
+            <form>
+                <div class="form-group col-md-3">
+                    <label for="titleId">Título</label>
+                    <input type="text" class="form-control" id="titleId" placeholder="Título da Tarefa" ng-model="taskForm.title" required="required">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="descriptionId">Descrição</label>
+                    <input type="text" class="form-control" id="descriptionId" placeholder="Descrição da Tarefa" ng-model="taskForm.description" required="required">
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="doneId">Ok?</label><br>
+                    <input type="checkbox" id="doneId" ng-model="taskForm.done">
+                </div>
+                <div class="form-group col-md-3">
+                    <button type="submit" class="btn btn-primary" ng-click="criar()" ng-hide="taskForm.key1" >Criar</button>
+                    <button type="submit" class="btn btn-primary" ng-click="atualizar()" ng-show="taskForm.key1">Atualizar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
